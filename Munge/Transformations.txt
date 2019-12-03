@@ -1,0 +1,67 @@
+Here is the SQL query to transform the required data form the data set and remove any unnecessary data.
+
+As we are only concerned with the genre of the games, critic score and to rearrange it. we are going to narrowdown the datat to only three columns that concerns us.
+
+
+CREATE EXTERNAL TABLE Video_Games_Sales_as_at_22_Dec_2016
+(
+Name string,
+Platform string,
+Year_of_Release int,
+Genre string,
+Publisher string,
+NA_Sales float, 
+EU_Sales float,
+JP_Sales float,
+Other_Sales float,
+Global_Sales float,
+Critic_Score int,
+Critic_Count int,
+User_Score float,
+User_Count int,
+Developer string,
+Rating string
+)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE LOCATION '/Video_Games'
+TBLPROPERTIES("skip.header.line.count"="1");
+
+
+
+
+Assignment#2
+CREATE TABLE sales_genre
+(
+Genre string,
+Global_Sales float,
+Critic_Score int
+);
+
+
+INSERT OVERWRITE TABLE sales_genre
+SELECT Genre, ROUND(Global_Sales, 0), Critic_Score
+FROM sales;
+Select * from sales_genre Limit 10;
+
+SELECT COUNT(Genre)
+FROM sales;
+
+
+INSERT OVERWRITE TABLE sales_genre
+SELECT Genre, ROUND(Global_Sales, 0), Critic_Score
+FROM sales_genre
+WHERE Critic_Score > 0;
+
+SELECT COUNT(Genre)
+FROM sales_genre;
+
+
+INSERT OVERWRITE TABLE sales_genre
+SELECT *
+FROM sales_genre
+ORDER BY Critic_Score;
+SELECT * FROM sales_genre Limit 10;
+
+
+

@@ -1,0 +1,25 @@
+Here we have an SQL query which was performed in orger to get the statistical values out of the data we have transformed.
+
+The statistical values are going to show us the popularity of the game in specific genre and also as classified to sports or shooter games
+
+SELECT AVG(Critic_Score) AS sports_critic_scofre
+FROM sales_genre
+WHERE Genre LIKE "%Sports%";
+SELECT AVG(Critic_Score) AS shooter_critic_scofre
+FROM sales_genre
+WHERE Genre LIKE "%Shooter%";
+
+
+SELECT AVG(Global_Sales) AS average_global_sales, MIN(Global_Sales) AS min_global_sales, MAX(Global_Sales) AS max_global_sales
+FROM sales_genre;
+SELECT AVG(Global_Sales) AS average_global_sales, MIN(Global_Sales) AS min_global_sales, MAX(Global_Sales) AS max_global_sales
+FROM sales_genre
+WHERE Genre LIKE "%Sports%";
+SELECT AVG(Global_Sales) AS average_global_sales, MIN(Global_Sales) AS min_global_sales, MAX(Global_Sales) AS max_global_sales
+FROM sales_genre
+WHERE Genre LIKE "%Shooter%";
+
+SELECT Genre, COUNT(Global_Sales) AS count
+FROM sales_genre
+GROUP BY Genre;
+
